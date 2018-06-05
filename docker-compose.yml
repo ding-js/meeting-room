@@ -1,0 +1,38 @@
+version: "3"
+services:
+  front_end:
+    container_name: fe
+    build:
+      context: client
+    image: meeting_room/client
+    restart: always
+    volumes: 
+      - "./config/nginx.conf:/etc/nginx/nginx.conf"
+    links:
+      - "back_end"
+    ports: 
+      - "80:80"
+  back_end:
+    container_name: be
+    build:
+      context: server
+    image: meeting_room/server
+    restart: always
+    environment:
+      NODE_ENV: production
+      DATABASE_HOST: database
+    links:
+      - "database"
+    depends_on:
+      - "database"
+    # ports: 
+    #   - "7001:7001"
+  database:
+    container_name: db
+    image: mysql:5
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: meeting_room
+    # ports: 
+    #   - "3306:3306"

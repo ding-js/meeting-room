@@ -1,0 +1,6 @@
+[submodule "client"]
+	path = client
+	url = git@github.com:ding-js/meeting-room-client.git
+[submodule "server"]
+	path = server
+	url = git@github.com:ding-js/meeting-room-server.git
