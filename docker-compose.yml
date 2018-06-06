@@ -12,6 +12,7 @@ services:
       - "back_end"
     ports: 
       - "80:80"
+      - "443:443"
   back_end:
     container_name: be
     build:
@@ -19,8 +20,8 @@ services:
     image: meeting_room/server
     restart: always
     environment:
-      NODE_ENV: production
-      DATABASE_HOST: database
+      - NODE_ENV
+      - DATABASE_HOST=database
     links:
       - "database"
     depends_on:
@@ -32,7 +33,9 @@ services:
     image: mysql:5
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: meeting_room
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+    volumes: 
+      - "${DATA_DIR}:/var/lib/mysql"
     # ports: 
     #   - "3306:3306"
