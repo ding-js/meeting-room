@@ -6,7 +6,7 @@ services:
       context: client
     image: meeting_room/client
     restart: always
-    volumes: 
+    volumes:
       - "./config/nginx.conf:/etc/nginx/nginx.conf"
     links:
       - "back_end"
@@ -26,8 +26,6 @@ services:
       - "database"
     depends_on:
       - "database"
-    # ports: 
-    #   - "7001:7001"
   database:
     container_name: db
     image: mysql:5
@@ -37,5 +35,3 @@ services:
       - MYSQL_DATABASE
     volumes: 
       - "${DATA_DIR}:/var/lib/mysql"
-    # ports: 
-    #   - "3306:3306"
